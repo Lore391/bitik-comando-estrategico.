@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bitik - Centro de Comando y Gobierno Estratégico</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Librería para leer archivos Excel en el navegador -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; color: #0b253a; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen text-slate-800">
+
+    <!-- Header Principal -->
+    <header class="bg-[#0b253a] text-white border-b border-slate-800 sticky top-0 z-50 shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-3">
+                <img src="https://www.bitik.co/wp-content/uploads/2025/05/CCDT-Site-white.png" alt="Bitik Logo" class="h-10 w-auto object-contain">
+                <div class="border-l border-slate-700 pl-3">
+                    <h1 class="text-sm font-bold tracking-tight text-white">Centro de Comando Estratégico</h1>
+                    <p class="text-[10px] uppercase tracking-widest text-[#9acd32] font-semibold">Organización · Derecho · Datos</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-3">
+                <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1.5 rounded-lg border border-slate-700 font-medium">
+                    ⚡ Entorno de Trabajo Activo
+                </span>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+        <!-- SECCIÓN 1: VISOR INTERACTIVO DE EXCEL POR HOJAS -->
+        <section class="bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+            <div class="px-6 py-5 bg-slate-50 border-b border-slate-200 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-md border border-emerald-200">Visor de Datos en Vivo</span>
+                    <h2 class="text-base font-extrabold text-[#0b253a] mt-1.5">Catalogo Bitik - ordenado.xlsx</h2>
+                    <p class="text-xs text-slate-500">Visualiza el contenido de las hojas directamente por pestañas.</p>
+                </div>
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
+                    <!-- Selector de Hojas (Se llena automáticamente al cargar el archivo) -->
+                    <select id="sheetSelect" class="bg-white border border-slate-300 text-xs font-semibold rounded-xl px-3 py-2 text-slate-700 focus:outline-none focus:ring-2 focus:ring-[#0b253a]" disabled>
+                        <option value="">Carga el Excel primero...</option>
+                    </select>
+                    <a href="Catalogo Bitik - ordenado.xlsx" download class="bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold px-4 py-2 rounded-xl transition shadow-sm inline-flex items-center gap-1.5 whitespace-nowrap">
+                        📥 Descargar Excel
+                    </a>
+                </div>
+            </div>
+
+            <!-- Contenedor de la Tabla o Estado Inicial con Botón de Carga -->
+            <div class="overflow-x-auto max-h-[500px]" id="tableContainer">
+                <div class="p-12 text-center space-y-4">
+                    <div class="w-16 h-16 bg-emerald-50 text-emerald-600 rounded-2xl flex items-center justify-center text-3xl mx-auto shadow-inner">
+                        📊
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-[#0b253a]">Carga tu catálogo para visualizarlo en pantalla</h3>
+                        <p class="text-xs text-slate-500 mt-1">Selecciona tu archivo <b>Catalogo Bitik - ordenado.xlsx</b> para activarlo instantáneamente.</p>
+                    </div>
+                    <div>
+                        <label class="cursor-pointer bg-[#0b253a] hover:bg-slate-800 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-sm inline-flex items-center gap-2">
+                            📂 Seleccionar Archivo Excel
+                            <input type="file" id="excelFileinput" accept=".xlsx, .xls" class="hidden">
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: INTELIGENCIA DE NEGOCIOS (POWER BI) -->
+        <section class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sm:p-8">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6 border-b border-slate-100 pb-4">
+                <div>
+                    <span class="text-[10px] font-bold uppercase tracking-wider text-amber-600 bg-amber-50 px-2.5 py-1 rounded-md border border-amber-200">Analítica Avanzada</span>
+                    <h2 class="text-base font-extrabold text-[#0b253a] mt-2">Segmentación de Clientes y Empresas (Power BI)</h2>
+                    <p class="text-xs text-slate-500">Visualización centralizada de sectores, tamaños y distribución geográfica.</p>
+                </div>
+                <a href="https://app.powerbi.com/groups/me/reports/bc128c86-fd26-43b3-9f5e-b63e70e9ea43/d694987c77d0b88e9926?experience=power-bi" target="_blank" class="bg-[#0b253a] hover:bg-slate-800 text-white text-xs font-bold px-4 py-2.5 rounded-xl transition shadow-sm inline-flex items-center gap-2">
+                    📊 Abrir Power BI
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Métrica Principal</p>
+                    <p class="text-lg font-extrabold text-[#0b253a] mt-1">535 mil</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Empresas analizadas</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Segmentos Clave</p>
+                    <p class="text-sm font-extrabold text-[#0b253a] mt-1">Construcción, Comercio y Servicios</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Sectores principales</p>
+                </div>
+                <div class="bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <p class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Cobertura Geográfica</p>
+                    <p class="text-sm font-extrabold text-[#0b253a] mt-1">Bogotá, Antioquia y Valle</p>
+                    <p class="text-xs text-slate-500 mt-0.5">Departamentos líderes</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: OTROS ARCHIVOS (DETALLE EMPRESAS Y BROCHURES) -->
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center text-xl font-bold">📂</span>
+                        <span class="text-[10px] bg-emerald-50 text-emerald-700 font-semibold px-2 py-0.5 rounded border border-emerald-200">67.9 MB</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#0b253a]">Detalle_Empresas_Bitik.xlsx</h3>
+                    <p class="text-xs text-slate-500 mt-1">Base de datos analítica detallada.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                    <a href="Detalle_Empresas_Bitik.xlsx" download class="w-full text-center bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm inline-flex items-center justify-center gap-2">
+                        📥 Descargar Base de Detalle
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-3">
+                        <span class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center text-xl font-bold">📁</span>
+                        <span class="text-[10px] bg-blue-50 text-blue-700 font-semibold px-2 py-0.5 rounded border border-blue-200">12 Documentos</span>
+                    </div>
+                    <h3 class="text-sm font-extrabold text-[#0b253a]">Directorio de Brochures</h3>
+                    <p class="text-xs text-slate-500 mt-1">Acceso a documentos sectoriales institucionales.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-100">
+                    <!-- ENLACE CORREGIDO APUNTANDO AL DIRECTORIO/INDEX -->
+                    <a href="Brochures/index.html" target="_blank" class="w-full text-center bg-[#0b253a] hover:bg-slate-800 text-white text-xs font-bold py-2.5 rounded-xl transition shadow-sm inline-flex items-center justify-center gap-2">
+                        🌐 Ver Directorio de Brochures
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <footer class="text-center py-6 border-t border-slate-200 text-xs text-slate-400 font-medium">
+            Bitik S.A.S. — Sistema Integral de Documentación Ejecutiva y Analítica
+        </footer>
+    </main>
+
+    <!-- Script de Gestión Interactiva del Excel Local -->
+    <script>
+        let workbookData = null;
+
+        document.getElementById('excelFileinput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const data = new Uint8Array(e.target.result);
+                    const workbook = XLSX.read(data, { type: 'array' });
+                    workbookData = workbook;
+
+                    const select = document.getElementById('sheetSelect');
+                    select.innerHTML = '';
+                    select.disabled = false;
+
+                    workbook.SheetNames.forEach((sheetName) => {
+                        const option = document.createElement('option');
+                        option.value = sheetName;
+                        option.textContent = `Hoja: ${sheetName}`;
+                        select.appendChild(option);
+                    });
+
+                    if (workbook.SheetNames.length > 0) {
+                        displaySheet(workbook.SheetNames[0]);
+                    }
+                } catch (error) {
+                    alert('Hubo un error al procesar el archivo Excel.');
+                }
+            };
+            reader.readAsArrayBuffer(file);
+        });
+
+        document.getElementById('sheetSelect').addEventListener('change', (e) => {
+            if (workbookData) {
+                displaySheet(e.target.value);
+            }
+        });
+
+        function displaySheet(sheetName) {
+            const worksheet = workbookData.Sheets[sheetName];
+            const htmlTable = XLSX.utils.sheet_to_html(worksheet, { header: "" });
+            
+            const container = document.getElementById('tableContainer');
+            container.innerHTML = htmlTable;
+
+            const table = container.querySelector('table');
+            if (table) {
+                table.className = 'w-full text-left border-collapse text-xs';
+                table.querySelectorAll('tr').forEach((tr, index) => {
+                    if (index === 0) {
+                        tr.className = 'bg-slate-100 text-slate-600 font-bold uppercase text-[10px] tracking-wider border-b border-slate-200 sticky top-0';
+                    } else {
+                        tr.className = 'hover:bg-slate-50 transition border-b border-slate-100 text-slate-700';
+                    }
+                    tr.querySelectorAll('th, td').forEach(cell => {
+                        cell.className = 'py-3 px-4 whitespace-nowrap';
+                    });
+                });
+            }
+        }
+    </script>
+</body>
+</html>
